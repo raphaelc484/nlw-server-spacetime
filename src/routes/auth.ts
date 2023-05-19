@@ -11,6 +11,8 @@ export async function authRoutes(app: FastifyInstance) {
 
     const { code } = bodySchema.parse(request.body)
 
+    console.log(code)
+
     const accessTokenResponse = await axios.post(
       'https://github.com/login/oauth/access_token',
       null,
@@ -27,6 +29,8 @@ export async function authRoutes(app: FastifyInstance) {
     )
 
     const { access_token } = accessTokenResponse.data
+
+    console.log(access_token)
 
     const userResponse = await axios.get('https://api.github.com/user', {
       headers: {
@@ -70,6 +74,8 @@ export async function authRoutes(app: FastifyInstance) {
         expiresIn: '30 days',
       },
     )
+
+    console.log(token)
 
     return { token }
   })
